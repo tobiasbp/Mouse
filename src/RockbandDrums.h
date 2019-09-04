@@ -50,6 +50,14 @@
 #define BUTTON_PLUS  0x0002
 #define BUTTON_LOGO  0x0010
 
+// Dpad
+#define DPAD_UP      0x00
+#define DPAD_RIGHT   0x02
+#define DPAD_DOWN    0x04
+#define DPAD_LEFT    0x06
+#define DPAD_CENTER  0x08
+
+
 class RockbandDrums_
 {
 private:
