@@ -68,7 +68,8 @@ private:
     uint8_t _dpad;
 
     void buttons(uint16_t b);
-    //void move(signed char x, signed char y, signed char wheel = 0);
+    
+    // Send data via USB
     void send();
 
 public:
@@ -79,8 +80,8 @@ public:
     
     // Activate pads/buttons
     // hit = press & release 
-    void hit(uint16_t b); 
-    void press(uint16_t b);
+    void press(uint16_t b); 
+    void hold(uint16_t b);
     void release(uint16_t b);
 
     // Set the dpad state

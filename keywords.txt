@@ -6,18 +6,17 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-Mouse	KEYWORD1
+RockbandDrums	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
 begin	KEYWORD2
-click	KEYWORD2
-move	KEYWORD2
 press	KEYWORD2
+hold	KEYWORD2
 release	KEYWORD2
-isPressed	KEYWORD2
+dpad	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

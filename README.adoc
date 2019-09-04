@@ -1,9 +1,10 @@
-= Mouse Library for Arduino =
+= RockbandDrums Library for Arduino =
 
-This library allows an Arduino board with USB capabilities to act as a Mouse.
+This library allows an Arduino board with USB capabilities to act as a drum
+controller for the game Rockband (Nintendo Wii version).
 
 For more information about this library please visit us at
-https://www.arduino.cc/reference/en/language/functions/usb/mouse/
+FIXME: Add URL
 
 == License ==
 

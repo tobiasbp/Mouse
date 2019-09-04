@@ -113,14 +113,6 @@ void RockbandDrums_::end(void)
 {
 }
 
-
-void RockbandDrums_::hit(uint16_t b)
-{
-    press(b);
-    release(b);
-}
-
-
 void RockbandDrums_::send()
 {
 
@@ -161,7 +153,7 @@ void RockbandDrums_::buttons(uint16_t b)
     }
 }
 
-void RockbandDrums_::press(uint16_t b) 
+void RockbandDrums_::hold(uint16_t b) 
 {
     buttons(_buttons | b);
 }
@@ -169,6 +161,12 @@ void RockbandDrums_::press(uint16_t b)
 void RockbandDrums_::release(uint16_t b)
 {
     buttons(_buttons & ~b);
+}
+
+void RockbandDrums_::press(uint16_t b)
+{
+    hold(b);
+    release(b);
 }
 
 void RockbandDrums_::dpad(uint8_t b)
