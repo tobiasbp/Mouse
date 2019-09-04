@@ -19,8 +19,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef MOUSE_h
-#define MOUSE_h
+#ifndef ROCKBANDDRUMS_h
+#define ROCKBANDDRUMS_h
 
 #include "HID.h"
 
@@ -30,18 +30,32 @@
 
 #else
 
-//================================================================================
-//================================================================================
-//  Mouse
+//======================================================================
+//======================================================================
 
-#define DRUM_BASS 0x1000
-#define DRUM_RED  0x0404
+
+// Drums
+#define DRUM_ORANGE  0x1000
+#define DRUM_BLUE    0x0104
+#define DRUM_GREEN   0x0204
+#define DRUM_RED     0x0404
+#define DRUM_YELLOW  0x0804
+
+// Buttons
+#define BUTTON_1     0x0100
+#define BUTTON_A     0x0200
+#define BUTTON_B     0x0400
+#define BUTTON_2     0x0800
+#define BUTTON_MINUS 0x0001
+#define BUTTON_PLUS  0x0002
+#define BUTTON_LOGO  0x0010
 
 class RockbandDrums_
 {
 private:
   uint16_t _buttons;
   void buttons(uint16_t b);
+
 public:
   RockbandDrums_(void);
   
@@ -49,11 +63,10 @@ public:
   void end(void);
   
   void hit(uint16_t b);
-  void move(signed char x, signed char y, signed char wheel = 0);
-  
-  void press(uint16_t b);   // press LEFT by default
-  void release(uint16_t b); // release LEFT by default
-  //bool isPressed(uint8_t b = MOUSE_LEFT); // check LEFT by default
+  void move(signed char x, signed char y, signed char wheel = 0);  
+  void press(uint16_t b);
+  void release(uint16_t b);
+
 };
 extern RockbandDrums_ RockbandDrums;
 
