@@ -61,23 +61,30 @@
 class RockbandDrums_
 {
 private:
-  uint16_t _buttons;
-  uint8_t _dpad;
-  
-  void buttons(uint16_t b);
-  void move(signed char x, signed char y, signed char wheel = 0);
+    // State of buttons
+    uint16_t _buttons;
+    
+    // State of dpad
+    uint8_t _dpad;
+
+    void buttons(uint16_t b);
+    //void move(signed char x, signed char y, signed char wheel = 0);
+    void send();
 
 public:
-  RockbandDrums_(void);
+    RockbandDrums_(void);
   
-  void begin(void);
-  void end(void);
-  
-  void hit(uint16_t b);
-  void press(uint16_t b);
-  void release(uint16_t b);
+    void begin(void);
+    void end(void);
+    
+    // Activate pads/buttons
+    // hit = press & release 
+    void hit(uint16_t b); 
+    void press(uint16_t b);
+    void release(uint16_t b);
 
-  void dpad(uint8_t b);
+    // Set the dpad state
+    void dpad(uint8_t b);
 };
 extern RockbandDrums_ RockbandDrums;
 

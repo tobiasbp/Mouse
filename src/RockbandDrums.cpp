@@ -121,7 +121,7 @@ void RockbandDrums_::hit(uint16_t b)
 }
 
 
-void RockbandDrums_::move(signed char x, signed char y, signed char wheel)
+void RockbandDrums_::send()
 {
 
     // The 27 bytes sent by the drum controller
@@ -157,7 +157,7 @@ void RockbandDrums_::buttons(uint16_t b)
     if (b != _buttons)
     {
         _buttons = b;
-        move(0,0,0);
+        send();
     }
 }
 
@@ -176,9 +176,8 @@ void RockbandDrums_::dpad(uint8_t b)
     if (b != _dpad)
     {
         _dpad = b;
-        move(0,0,0);
+        send();
     }
-
 }
 
 RockbandDrums_ RockbandDrums;
