@@ -34,25 +34,26 @@
 //================================================================================
 //  Mouse
 
-#define MOUSE_LEFT 1
-#define MOUSE_RIGHT 2
-#define MOUSE_MIDDLE 4
-#define MOUSE_ALL (MOUSE_LEFT | MOUSE_RIGHT | MOUSE_MIDDLE)
+#define DRUM_BASS 0x1000
+#define DRUM_RED  0x0404
 
 class RockbandDrums_
 {
 private:
-  uint8_t _buttons;
-  void buttons(uint8_t b);
+  uint16_t _buttons;
+  void buttons(uint16_t b);
 public:
   RockbandDrums_(void);
+  
   void begin(void);
   void end(void);
-  void click(uint8_t b = MOUSE_LEFT);
-  void move(signed char x, signed char y, signed char wheel = 0); 
-  void press(uint8_t b = MOUSE_LEFT);   // press LEFT by default
-  void release(uint8_t b = MOUSE_LEFT); // release LEFT by default
-  bool isPressed(uint8_t b = MOUSE_LEFT); // check LEFT by default
+  
+  void hit(uint16_t b);
+  void move(signed char x, signed char y, signed char wheel = 0);
+  
+  void press(uint16_t b);   // press LEFT by default
+  void release(uint16_t b); // release LEFT by default
+  //bool isPressed(uint8_t b = MOUSE_LEFT); // check LEFT by default
 };
 extern RockbandDrums_ RockbandDrums;
 

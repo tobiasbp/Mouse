@@ -24,8 +24,9 @@
 #if defined(_USING_HID)
 
 static const uint8_t _hidReportDescriptor[] PROGMEM = {
-  
+
     // Rockband drum controller (Wii)
+    
     0x05, 0x01,       // USAGE_PAGE (Generic Desktop)
     0x09, 0x05,       // USAGE (Gamepad)
     0xa1, 0x01,       // COLLECTION (Application)
@@ -91,6 +92,7 @@ static const uint8_t _hidReportDescriptor[] PROGMEM = {
     0x95, 0x04,       // REPORT COUNT (4)
     0x81, 0x02,       // INPUT (Data,Var,Abs)
     0xC0              // END COLLECTION
+
 };
 
 //================================================================================
@@ -111,48 +113,59 @@ void RockbandDrums_::end(void)
 {
 }
 
-void RockbandDrums_::click(uint8_t b)
+
+void RockbandDrums_::hit(uint16_t b)
 {
-	_buttons = b;
-	move(0,0,0);
-	_buttons = 0;
-	move(0,0,0);
+    press(b);
+    release(b);
 }
+
 
 void RockbandDrums_::move(signed char x, signed char y, signed char wheel)
 {
-	uint8_t m[4];
-	m[0] = _buttons;
-	m[1] = x;
-	m[2] = y;
-	m[3] = wheel;
-	HID().SendReport(1,m,4);
+
+    // The 27 bytes sent by the drum controller
+    // Only 3 first bytes seem to be used
+    uint8_t d[] = {
+      0x00, 0x00, 0x08, 0x7F, 0x7F,
+      0x7F, 0x7F, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x02,
+      0x00, 0x02, 0x00, 0x02, 0x00,
+      0x02, 0x00
+    };
+    
+    // Update two first bytes with button data
+    d[0] = highByte(_buttons);
+    d[1] = lowByte(_buttons);
+
+    // Send the data
+    // 1st argument (an ID) is sent before the rest of the data
+    // The drum controller does not use the first byte for an ID,
+    // so we will send the 1st byte of the payload as ID.
+    // The following 26 bytes follows
+    // 1 + 26 = 27 the bytes we want to send
+    HID().SendReport(d[0], &d[1], 26);
+    
 }
 
-void RockbandDrums_::buttons(uint8_t b)
+void RockbandDrums_::buttons(uint16_t b)
 {
-	if (b != _buttons)
-	{
-		_buttons = b;
-		move(0,0,0);
-	}
+    if (b != _buttons)
+    {
+        _buttons = b;
+        move(0,0,0);
+    }
 }
 
-void RockbandDrums_::press(uint8_t b) 
+void RockbandDrums_::press(uint16_t b) 
 {
-	buttons(_buttons | b);
+    buttons(_buttons | b);
 }
 
-void RockbandDrums_::release(uint8_t b)
+void RockbandDrums_::release(uint16_t b)
 {
-	buttons(_buttons & ~b);
-}
-
-bool RockbandDrums_::isPressed(uint8_t b)
-{
-	if ((b & _buttons) > 0) 
-		return true;
-	return false;
+    buttons(_buttons & ~b);
 }
 
 RockbandDrums_ RockbandDrums;
