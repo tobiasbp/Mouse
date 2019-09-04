@@ -125,7 +125,7 @@ void RockbandDrums_::move(signed char x, signed char y, signed char wheel)
 {
 
     // The 27 bytes sent by the drum controller
-    // Only 3 first bytes seem to be used
+    // This is the state when no pad/buttons are pressed
     uint8_t d[] = {
       0x00, 0x00, 0x08, 0x7F, 0x7F,
       0x7F, 0x7F, 0x00, 0x00, 0x00,
@@ -138,6 +138,9 @@ void RockbandDrums_::move(signed char x, signed char y, signed char wheel)
     // Update two first bytes with button data
     d[0] = highByte(_buttons);
     d[1] = lowByte(_buttons);
+    
+    // 3rd byte is the dpad state 
+    d[2] = _dpad;
 
     // Send the data
     // 1st argument (an ID) is sent before the rest of the data
@@ -166,6 +169,16 @@ void RockbandDrums_::press(uint16_t b)
 void RockbandDrums_::release(uint16_t b)
 {
     buttons(_buttons & ~b);
+}
+
+void RockbandDrums_::dpad(uint8_t b)
+{
+    if (b != _dpad)
+    {
+        _dpad = b;
+        move(0,0,0);
+    }
+
 }
 
 RockbandDrums_ RockbandDrums;

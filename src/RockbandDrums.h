@@ -62,7 +62,10 @@ class RockbandDrums_
 {
 private:
   uint16_t _buttons;
+  uint8_t _dpad;
+  
   void buttons(uint16_t b);
+  void move(signed char x, signed char y, signed char wheel = 0);
 
 public:
   RockbandDrums_(void);
@@ -71,10 +74,10 @@ public:
   void end(void);
   
   void hit(uint16_t b);
-  void move(signed char x, signed char y, signed char wheel = 0);  
   void press(uint16_t b);
   void release(uint16_t b);
 
+  void dpad(uint8_t b);
 };
 extern RockbandDrums_ RockbandDrums;
 
