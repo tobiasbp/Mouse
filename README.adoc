@@ -3,8 +3,72 @@
 This library allows an Arduino board with USB capabilities to act as a drum
 controller for the game Rockband (Nintendo Wii version).
 
+The code has been tested on an Arduino Leonardo.
+
 For more information about this library please visit us at
 FIXME: Add URL
+
+## Setting the vendor and product IDs
+For the Arduino to be recognized as a drum controller by the Wii, you need to change
+the default vendor and product IDs. The the vendor id must be _0x1bad_, and the product id must be _0x3110_.
+
+You can change the IDs in the file 'boards.txt'.
+
+Find these lines:
+
+```
+leonardo.build.vid=0x2341
+leonardo.build.pid=0x8036
+```
+
+Change them to:
+```
+leonardo.build.vid=0x1bad
+leonardo.build.pid=0x3110
+```
+
+
+If you want, you can add a version of you board in a RockbandDrums variant by copying
+the the board data in boards.txt. This is my RockbandDrums variant of the Arduino Leonardo:
+ 
+```
+leonardoRBD.name=Arduino Leonardo Rockband Drums
+leonardoRBD.vid.0=0x2341
+leonardoRBD.pid.0=0x0036
+leonardoRBD.vid.1=0x2341
+leonardoRBD.pid.1=0x8036
+leonardoRBD.vid.2=0x2A03
+leonardoRBD.pid.2=0x0036
+leonardoRBD.vid.3=0x2A03
+leonardoRBD.pid.3=0x8036
+
+leonardoRBD.upload.tool=avrdude
+leonardoRBD.upload.protocol=avr109
+leonardoRBD.upload.maximum_size=28672
+leonardoRBD.upload.maximum_data_size=2560
+leonardoRBD.upload.speed=57600
+leonardoRBD.upload.disable_flushing=true
+leonardoRBD.upload.use_1200bps_touch=true
+leonardoRBD.upload.wait_for_upload_port=true
+
+leonardoRBD.bootloader.tool=avrdude
+leonardoRBD.bootloader.low_fuses=0xff
+leonardoRBD.bootloader.high_fuses=0xd8
+leonardoRBD.bootloader.extended_fuses=0xcb
+leonardoRBD.bootloader.file=caterina/Caterina-Leonardo.hex
+leonardoRBD.bootloader.unlock_bits=0x3F
+leonardoRBD.bootloader.lock_bits=0x2F
+
+leonardoRBD.build.mcu=atmega32u4
+leonardoRBD.build.f_cpu=16000000L
+leonardoRBD.build.vid=0x1bad
+leonardoRBD.build.pid=0x3110
+leonardoRBD.build.usb_product="Arduino Leonardo (Rockband Drums)"
+leonardoRBD.build.board=AVR_LEONARDO
+leonardoRBD.build.core=arduino
+leonardoRBD.build.variant=leonardo
+leonardoRBD.build.extra_flags={build.usb_flags}
+```
 
 == License ==
 
