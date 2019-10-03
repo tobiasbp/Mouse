@@ -33,13 +33,25 @@
 //======================================================================
 //======================================================================
 
+// Drums & buttons are sent as the first two bytes
+// D-pad state is sent as the 3rd byte
 
-// Drums
-#define DRUM_ORANGE  0x1000
+// Drum pads
 #define DRUM_BLUE    0x0104
 #define DRUM_GREEN   0x0204
 #define DRUM_RED     0x0404
 #define DRUM_YELLOW  0x0804
+
+// External inputs
+// Orange is bass drum. Other Color
+// coded inputs duplicate
+// drum pads of same color
+#define EXT_ORANGE  0x1000
+#define EXT_BLACK   0x2000
+#define EXT_YELLOW  DRUM_YELLOW
+#define EXT_BLUE    DRUM_BLUE
+#define EXT_GREEN   DRUM_GREEN
+#define EXT_BLACK   DRUM_GREEN
 
 // Buttons
 #define BUTTON_1     0x0100
